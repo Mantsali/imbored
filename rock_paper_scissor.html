@@ -1,0 +1,117 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        body {
+            min-height: 100vh;
+        }
+        .options, .results {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+        .options div{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rock Paper Scissors</h1>
+
+    <div class="options">
+        <div class="rock">
+<i class="fa-solid fa-hand-back-fist fa-2xl"></i>
+        </div>
+        <div class="paper">
+            <i class="fa-solid fa-hand fa-2xl"></i>
+        </div>
+        <div class="scissors">
+            <i class="fa-solid fa-hand-scissors fa-2xl"></i>
+        </div>
+    </div>
+
+    <div class="results">
+        <div class="player">
+
+        </div>
+        <div class="pc">
+
+        </div>
+    </div>
+
+    <h2 class="anouncement"></h2>
+    <script>
+        let rock = document.querySelector('.rock');
+        let paper = document.querySelector('.paper');
+        let scissors = document.querySelector('.scissors')
+        let playerBox = document.querySelector('.player');
+        let pcBox = document.querySelector('.pc');
+        let anouncement = document.querySelector('.anouncement');
+
+        let selection = ["rock", "paper", "scissor"];
+        let myChoice = 0;
+        let pcChoice = 0;
+
+
+        rock.addEventListener('click', function(){
+            playerBox.innerHTML = '<i class="fa-solid fa-hand-back-fist fa-2xl"></i>';
+            myChoice = 0;
+            pcTurn();
+        });
+
+        paper.addEventListener('click', function(){
+            playerBox.innerHTML = '<i class="fa-solid fa-hand fa-2xl"></i>';
+            myChoice = 1;
+            pcTurn();
+        });
+
+        scissors.addEventListener('click', function(){
+            playerBox.innerHTML = '<i class="fa-solid fa-hand-scissors fa-2xl"></i>';
+            myChoice = 2;
+            pcTurn();
+        });
+
+        function pcTurn(){
+            let results = Math.floor((Math.random() * 3));;
+
+            switch (results){
+                case 0:
+                pcBox.innerHTML = '<i class="fa-solid fa-hand-back-fist fa-2xl"></i>';
+                pcChoice = 0;
+                checkWinn();
+                break;
+                case 1:
+                pcBox.innerHTML = '<i class="fa-solid fa-hand fa-2xl"></i>';
+                pcChoice = 1;
+                checkWinn();
+                break;
+                default:
+                pcBox.innerHTML = '<i class="fa-solid fa-hand-scissors fa-2xl"></i>';
+                pcChoice = 2;
+                checkWinn();
+            }
+        }
+
+        function checkWinn(){
+            if(myChoice == pcChoice)
+            {
+                anouncement.innerText = "Draw";
+            }
+            else if((myChoice == 0 && pcChoice == 2) || (myChoice == 1 && pcChoice == 0) || (myChoice == 2 && pcChoice == 1)){
+                anouncement.innerText = "you won";
+            }
+            else{
+                anouncement.innerText = "lost";
+            }
+            
+        }
+    </script>
+</body>
+</html>

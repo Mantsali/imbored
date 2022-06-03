@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+
+body {
+  display: grid;
+  grid-template-rows: 50px 100vh auto 50px;
+}
+
+header {
+  display: grid;
+  grid-template-columns: 50px auto 50px;
+}
+nav {
+  grid-column: 2/3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav h1 {
+  font-style: italic;
+}
+nav ul {
+  display: flex;
+}
+nav ul li {
+  list-style: none;
+  padding: 0px 15px;
+}
+.home,
+footer {
+  background: #000;
+  color: white;
+}
+footer {
+  text-align: center;
+  padding: 20px;
+}
+
+footer a {
+  color: #ddd;
+}

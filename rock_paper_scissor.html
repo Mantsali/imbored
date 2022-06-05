@@ -11,6 +11,7 @@
         body {
             min-height: 100vh;
         }
+        
         .options, .results {
             display: flex;
             justify-content: center;
@@ -19,6 +20,10 @@
         }
         .options div{
             cursor: pointer;
+        }
+
+        table th, table td{
+            padding: 15px;
         }
     </style>
 </head>
@@ -38,73 +43,122 @@
     </div>
 
     <div class="results">
-        <div class="player">
 
-        </div>
-        <div class="pc">
+        <Table>
+            <thead>
+                <tr>
+                <th>You</th>
+                <th>PC</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="player"></td>
+                    <td class="pc"></td>
+                    
+                </tr>
+                <tr>
+                    <td class="playerText"></td>
+                    <td class="pcText"></td>
+                    
+                </tr>
+            </tbody>
+        </Table>
 
-        </div>
+       
     </div>
 
     <h2 class="anouncement"></h2>
     <script>
+        /*
         let rock = document.querySelector('.rock');
         let paper = document.querySelector('.paper');
-        let scissors = document.querySelector('.scissors')
-        let playerBox = document.querySelector('.player');
-        let pcBox = document.querySelector('.pc');
-        let anouncement = document.querySelector('.anouncement');
+        let scissors = document.querySelector('.scissors');
+        */
+        const possibleChoices = document.querySelectorAll('.options div');
 
-        let selection = ["rock", "paper", "scissor"];
-        let myChoice = 0;
-        let pcChoice = 0;
+        const playerBox = document.querySelector('.player');
+        const pcBox = document.querySelector('.pc');
+        const playerText = document.querySelector('.playerText');
+        const pcText = document.querySelector('.pcText');
+        const anouncement = document.querySelector('.anouncement');
+
+        const selection = ["rock", "paper", "scissors"];
+        let myChoice;
+
+        let pcChoice;
 
 
-        rock.addEventListener('click', function(){
+        possibleChoices.forEach(possibleChoice => possibleChoice.addEventListener('click', (e) => {
+            switch (e.currentTarget.className){
+                case "rock":
+                playerBox.innerHTML = '<i class="fa-solid fa-hand-back-fist fa-2xl"></i>';
+                
+                break;
+                case "paper":
+                playerBox.innerHTML = '<i class="fa-solid fa-hand fa-2xl"></i>';
+               
+                break;
+                default:
+                playerBox.innerHTML = '<i class="fa-solid fa-hand-scissors fa-2xl"></i>';
+             
+            }
+            myChoice = e.currentTarget.className;
+            playerText.innerHTML = myChoice;
+            pcTurn();
+        }));
+
+/*
+        rock.addEventListener('click', (e) => {
             playerBox.innerHTML = '<i class="fa-solid fa-hand-back-fist fa-2xl"></i>';
-            myChoice = 0;
-            pcTurn();
+            mySelection(e.currentTarget.className);
         });
 
-        paper.addEventListener('click', function(){
+        paper.addEventListener('click', (e) => {
             playerBox.innerHTML = '<i class="fa-solid fa-hand fa-2xl"></i>';
-            myChoice = 1;
-            pcTurn();
+            mySelection(e.currentTarget.className);
         });
 
-        scissors.addEventListener('click', function(){
+        scissors.addEventListener('click', (e) => {
             playerBox.innerHTML = '<i class="fa-solid fa-hand-scissors fa-2xl"></i>';
-            myChoice = 2;
-            pcTurn();
+            mySelection(e.currentTarget.className);
         });
 
+        function mySelection(class_name){
+            myChoice = class_name;
+            playerText.innerText = myChoice;
+            pcTurn();
+        }
+*/
         function pcTurn(){
-            let results = Math.floor((Math.random() * 3));;
+            
+            const results = Math.floor((Math.random() * 3));;
 
             switch (results){
                 case 0:
                 pcBox.innerHTML = '<i class="fa-solid fa-hand-back-fist fa-2xl"></i>';
-                pcChoice = 0;
-                checkWinn();
                 break;
                 case 1:
                 pcBox.innerHTML = '<i class="fa-solid fa-hand fa-2xl"></i>';
-                pcChoice = 1;
-                checkWinn();
                 break;
                 default:
                 pcBox.innerHTML = '<i class="fa-solid fa-hand-scissors fa-2xl"></i>';
-                pcChoice = 2;
-                checkWinn();
+              
             }
+
+            pcChoice = selection[results];
+            pcText.innerHTML = pcChoice;
+            checkWinn();
         }
 
         function checkWinn(){
-            if(myChoice == pcChoice)
+            if(myChoice === pcChoice)
             {
                 anouncement.innerText = "Draw";
             }
-            else if((myChoice == 0 && pcChoice == 2) || (myChoice == 1 && pcChoice == 0) || (myChoice == 2 && pcChoice == 1)){
+            else if((myChoice == selection[0] && pcChoice == selection[2]) || 
+                    (myChoice == selection[1] && pcChoice == selection[0]) || 
+                    (myChoice == selection[2] && pcChoice == selection[1])){
                 anouncement.innerText = "you won";
             }
             else{
